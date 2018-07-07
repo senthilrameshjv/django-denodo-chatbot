@@ -1,0 +1,8 @@
+What is the Database URI to use to connect to Denodo Platform?
+This is the JDBC URI you can use - jdbc:vdb://<hostName>:<port>/<databaseName>[?<paramName>=<paramValue> [&<paramName>=<paramValue>]* ]
+What is the Database URI to use to connect to Virtual DataPort server?
+JDBC connections can use this URI - jdbc:vdb://<hostName>:<port>/<databaseName>[?<paramName>=<paramValue> [&<paramName>=<paramValue>]* ]
+Where can I find the drivers to connect to Virtual DataPort or Denodo Platform?
+The client drivers to connect to Virtual DataPort through JDBC and ODBC are available under the folder <DENODO_HOME>/tools/client-drivers
+Thanks
+You are welcome
