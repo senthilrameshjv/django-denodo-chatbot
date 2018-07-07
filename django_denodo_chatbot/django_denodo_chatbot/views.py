@@ -15,7 +15,7 @@ class ChatterBotApiView(View):
     Provide an API endpoint to interact with ChatterBot.
     """
 
-    chatterbot = ChatBot(**settings.CHATTERBOT)
+    chatterbot = ChatBot(**settings.CHATTERBOT, read_only = True,)
 
     def get_conversation(self, request):
         """
@@ -69,8 +69,12 @@ class ChatterBotApiView(View):
             }, status=400)
 
         conversation = self.get_conversation(request)
-
+        prefix = ''
         response = self.chatterbot.get_response(input_data, conversation.id)
+        if response.text.startswith('http'):
+           prefix = 'This URL may help you for the answer'
+           response.text = prefix + ' ' + response.text
+
         response_data = response.serialize()
 
         return JsonResponse(response_data, status=200)

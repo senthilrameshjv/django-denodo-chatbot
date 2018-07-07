@@ -45,11 +45,22 @@ INSTALLED_APPS = [
 # ChatterBot settings
 
 CHATTERBOT = {
-    'name': 'Denodo Chatbot using Django',
+    'name': 'Denodo Chatbot',
     'trainer': 'chatterbot.trainers.ChatterBotCorpusTrainer',
+    "storage_adapter":"chatterbot.storage.MongoDatabaseAdapter", "database":"chatbot_db",
     'training_data': [
         'chatterbot.corpus.english.greetings','chatterbot.corpus.english.conversations'
     ],
+"logic_adapters":[
+        {
+            "import_path": "chatterbot.logic.BestMatch",
+            "statement_comparison_function": "chatterbot.comparisons.levenshtein_distance",
+            "response_selection_method": "chatterbot.response_selection.get_random_response"
+        },{
+            'import_path': 'chatterbot.logic.LowConfidenceAdapter',
+            'threshold': 0.4,
+            'default_response': 'Could you be more clear on your question?'
+        }],
     'django_app_name': 'django_chatterbot'
 }
 
@@ -68,7 +79,7 @@ ROOT_URLCONF = 'django_denodo_chatbot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [r'C:\Senthil\chatbot_project\django_denodo_chatbot\django_denodo_chatbot\django_denodo_chatbot\templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,3 +150,13 @@ STATICFILES_DIRS = (
         'static',
     ),
 )
+
+#TEMPLATE_DIRS = (
+#    os.path.join(
+#        os.path.dirname(__file__),
+#        'templates',
+#    ),
+#)
+
+#TEMPLATE_DIRS = [ 'C:\Senthil\chatbot_project\django_denodo_chatbot\django_denodo_chatbot\django_denodo_chatbot/templates']
+
